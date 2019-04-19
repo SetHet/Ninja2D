@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 3924662540080864031}
   - component: {fileID: 6566394283286534334}
   - component: {fileID: 7762456972407448667}
+  - component: {fileID: 6077454524326187409}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -205,7 +206,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 60
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -246,6 +247,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attack: Attack
   inAir: inAir
+--- !u!114 &6077454524326187409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2352842654403641730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c497f3e26d43a50499d190af8754b0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance_detect: 0.01
+  layerGround:
+    serializedVersion: 2
+    m_Bits: 17
+  velocidad_walk: 4
+  forceJump: 7
 --- !u!1 &6450127815825216488
 GameObject:
   m_ObjectHideFlags: 0
