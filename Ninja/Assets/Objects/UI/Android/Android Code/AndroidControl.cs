@@ -6,12 +6,9 @@ using UnityEngine.UI;
 public class AndroidControl : MonoBehaviour
 {
     #region UI
-    public RectTransform stick_limits;
-    public RectTransform stick_area;
-    public RectTransform stick_point;
-
-    public Button attack;
-    public Button jump;
+    [SerializeField] protected Android_DinamicStick stickLeft;
+    [SerializeField] protected Android_Button attack;
+    [SerializeField] protected Android_Button jump;
     #endregion
     private void Start()
     {
@@ -31,4 +28,5 @@ public class AndroidControl : MonoBehaviour
 #endif
         return true;
     }
+    
 }
