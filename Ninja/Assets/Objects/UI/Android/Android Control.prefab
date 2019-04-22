@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 8493815115230318047}
   - component: {fileID: 1324284376327041118}
   - component: {fileID: 5564529680864057678}
+  - component: {fileID: 6056285828327460468}
   m_Layer: 5
   m_Name: Button attack
   m_TagString: Untagged
@@ -347,7 +348,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3439476121241997140}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -385,6 +386,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &6056285828327460468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3439476121241997140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &4759427593923506934
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,11 +565,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052e3be8917c9594fa58af016fd9cb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stick_limits: {fileID: 398382402}
-  stick_area: {fileID: 1451317770}
-  stick_point: {fileID: 644433108}
-  attack: {fileID: 5564529680864057678}
-  jump: {fileID: 2782665657084945783}
+  stickLeft:
+    Area: {fileID: 0}
+    Circle: {fileID: 0}
+    Point: {fileID: 0}
+    OriginPoint: {x: 0, y: 0}
+  attack:
+    trigger: {fileID: 6056285828327460468}
+    click: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    isCircle: 1
+  jump:
+    trigger: {fileID: 6857755663528819311}
+    click: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    isCircle: 1
 --- !u!1 &6033711079279159012
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +590,7 @@ GameObject:
   - component: {fileID: 8696679644945509179}
   - component: {fileID: 8932678816268062721}
   - component: {fileID: 2782665657084945783}
+  - component: {fileID: 6857755663528819311}
   m_Layer: 5
   m_Name: Button jump
   m_TagString: Untagged
@@ -639,7 +662,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6033711079279159012}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -677,3 +700,16 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &6857755663528819311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033711079279159012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []

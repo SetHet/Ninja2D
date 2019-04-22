@@ -2,31 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class Android_Button
 {
     #region Variables
-    [SerializeField] protected Button button;
+    [SerializeField] protected EventTrigger trigger;
     [SerializeField] protected Color click = Color.gray;
+    [SerializeField] protected bool isCircle = true;
+
+    bool isDown = false;
+    bool isUp = false;
+    bool isPress = false;
+    bool isClick = false;
     #endregion
 
     #region Methods
-    public bool isDown()
+    public bool IsDown()
     {
-        return false;
+        return isDown;
     }
-    public bool isUp()
+    public bool IsUp()
     {
-        return false;
+        return isUp;
     }
-    public bool isPress()
+    public bool IsPress()
     {
-        return false;
+        return isPress;
     }
-    public bool isClick()
+    public bool IsClick()
     {
-        return false;
+        return isClick;
     }
+
+    public void ConfigEvent()
+    {
+        AddEvent(EventTriggerType.PointerDown, (data) => { isDown = true; isPress = true; });
+        AddEvent(EventTriggerType.PointerUp, (data) => { isUp = true; isPress = false; });
+        AddEvent(EventTriggerType.PointerExit, (data) => { isPress = false; });
+        AddEvent(EventTriggerType.PointerClick, (data) => { isClick = true; });
+    }
+
+    public void Reset()
+    {
+        isDown = false;
+        isUp = false;
+        isClick = false;
+    }
+
+    void AddEvent(EventTriggerType triggerType, UnityEngine.Events.UnityAction<BaseEventData> method)
+    {
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = triggerType;
+        entry.callback.AddListener(method);
+        trigger.triggers.Add(entry);
+    }
+
+   
     #endregion
 }

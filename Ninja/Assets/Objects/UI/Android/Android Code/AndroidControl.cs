@@ -13,11 +13,18 @@ public class AndroidControl : MonoBehaviour
     private void Start()
     {
         if (!OnlyAndroid()) return;
+        attack.ConfigEvent();
+        jump.ConfigEvent();
     }
 
     void Update()
     {
-        
+    }
+
+    private void LateUpdate()
+    {
+        attack.Reset();
+        jump.Reset();
     }
 
     bool OnlyAndroid()
@@ -28,5 +35,9 @@ public class AndroidControl : MonoBehaviour
 #endif
         return true;
     }
-    
+
+    public void Test()
+    {
+        Debug.Log("Is Press");
+    }
 }
