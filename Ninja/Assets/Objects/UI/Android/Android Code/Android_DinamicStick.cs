@@ -32,7 +32,7 @@ public class Android_DinamicStick
     {
         Vector2 vec = new Vector2();
 
-        //calcular Axis
+        vec = Point.rect.position - Circle.rect.position;
 
         if (vec.magnitude < puntoMuerto) return Vector2.zero;
         if (vec.magnitude > puntoMaximo) return vec.normalized;
@@ -65,7 +65,7 @@ public class Android_DinamicStick
 
     void Drag(PointerEventData data)
     {
-
+        Move(data.position);
     }
 
     void Exit()
@@ -101,6 +101,13 @@ public class Android_DinamicStick
         Point.anchorMax = new Vector2(0, 0);
 
         Reset();
+    }
+
+    void Move(Vector2 pos)
+    {
+        Debug.Log("Drag: pos: " + pos);
+        //Point.localPosition = new Vector3(pos.x, Area.rect.height / 2 - pos.y , 0);
+        Point.localPosition = new Vector3(pos.x, pos.y - Area.rect.height / 2, 0);
     }
     #endregion
 
