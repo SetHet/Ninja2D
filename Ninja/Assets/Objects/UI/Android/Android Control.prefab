@@ -566,10 +566,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stickLeft:
-    Area: {fileID: 0}
-    Circle: {fileID: 0}
-    Point: {fileID: 0}
-    OriginPoint: {x: 0, y: 0}
+    Area: {fileID: 398382402}
+    Circle: {fileID: 1451317770}
+    Point: {fileID: 644433108}
+    OriginPoint: {x: 100, y: 100}
+    fixAxis: 0
+    fixIntervaloLimit: 1
+    isDinamic: 1
+    resetInUp: 1
+    puntoMuerto: 0
+    puntoMaximo: 1
   attack:
     trigger: {fileID: 6056285828327460468}
     click: {r: 0.5, g: 0.5, b: 0.5, a: 1}

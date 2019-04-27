@@ -15,6 +15,7 @@ public class AndroidControl : MonoBehaviour
         if (!OnlyAndroid()) return;
         attack.ConfigEvent();
         jump.ConfigEvent();
+        stickLeft.Init();
     }
 
     void Update()
