@@ -105,10 +105,46 @@ public class Android_DinamicStick
 
     void Move(Vector2 pos)
     {
-        Debug.Log("Drag: pos: " + pos);
-        //Point.localPosition = new Vector3(pos.x, Area.rect.height / 2 - pos.y , 0);
         Point.localPosition = new Vector3(pos.x, pos.y - Area.rect.height / 2, 0);
+        Vector2 dif = Point.localPosition - Circle.localPosition;
+        float radio = Circle.rect.height / 2f;
+        Debug.Log("radio: " + radio + " ---dif.mag: " + dif.magnitude);
+        if (dif.magnitude <= radio) return;
+        if (isDinamic)
+        {
+            Vector2 position_circle = Point.localPosition - (Vector3)dif.normalized * radio;
+            //Vector2 position_point = Point.localPosition;
+            if (position_circle.x-(Circle.rect.width/2f) < 0)
+            {
+                position_circle.x = Circle.rect.width / 2f;
+                //position_point.x = 0;
+            }
+            else if (position_circle.x + (Circle.rect.width / 2f) > Area.rect.width)
+            {
+                position_circle.x = Area.rect.width - (Circle.rect.width / 2f);
+                //position_point.x = Area.rect.width;
+            }
+
+            if (position_circle.y - (Circle.rect.height / 2f) < -Area.rect.height/2f)
+            {
+                position_circle.y = -Area.rect.height / 2f + Circle.rect.width / 2f;
+                //position_point.y = -Area.rect.height / 2f;
+            }
+            else if (position_circle.y + (Circle.rect.height / 2f) > Area.rect.height / 2f)
+            {
+                position_circle.y = Area.rect.height / 2f - (Circle.rect.width / 2f);
+                //position_point.y = Area.rect.height / 2f;
+            }
+            Circle.localPosition = position_circle;
+            //Point.localPosition = position_point;
+            Point.localPosition = Circle.localPosition + (Vector3)dif.normalized * radio;
+        }
+        else
+        {
+            Point.localPosition = Circle.localPosition + (Vector3)dif.normalized * radio;
+        }
     }
+    
     #endregion
 
 }
