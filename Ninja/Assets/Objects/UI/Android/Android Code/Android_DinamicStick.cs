@@ -17,6 +17,8 @@ public class Android_DinamicStick
     [SerializeField] protected bool fixIntervaloLimit = true; // si el axis dependera del punto muerto y maximo
     [SerializeField] protected bool isDinamic = true;
     [SerializeField] protected bool resetInUp = true;
+    [SerializeField] protected bool manualRadio = true;
+    [SerializeField] protected float manualRadioValue = 40f;
     [Range(0f, 1f)] [SerializeField] protected float puntoMuerto = 0f;
     [Range(0f, 1f)] [SerializeField] protected float puntoMaximo = 1f;
     #endregion
@@ -32,7 +34,15 @@ public class Android_DinamicStick
     {
         Vector2 vec = new Vector2();
 
-        vec = Point.rect.position - Circle.rect.position;
+        vec = Point.localPosition - Circle.localPosition;
+        if (manualRadio)
+        {
+            vec = vec / manualRadioValue;
+        }
+        else
+        {
+            vec = vec / (Circle.rect.height / 2f);
+        }
 
         if (vec.magnitude < puntoMuerto) return Vector2.zero;
         if (vec.magnitude > puntoMaximo) return vec.normalized;
@@ -40,8 +50,8 @@ public class Android_DinamicStick
 
         if (fixIntervaloLimit)
         {
-            //calcular valor intermedio 
-            //libreria Utility.Math.Remap
+            vec.x = Utilities.UtilitiesMath.RemapFloat(vec.x, puntoMuerto, puntoMaximo);
+            vec.y = Utilities.UtilitiesMath.RemapFloat(vec.y, puntoMuerto, puntoMaximo);
         }
 
         return vec;
@@ -53,11 +63,6 @@ public class Android_DinamicStick
         Point.anchoredPosition = OriginPoint;
     }
 
-    void Down()
-    {
-
-    }
-
     void Up()
     {
         if (resetInUp) Reset();
@@ -66,11 +71,7 @@ public class Android_DinamicStick
     void Drag(PointerEventData data)
     {
         Move(data.position);
-    }
-
-    void Exit()
-    {
-
+        //Debug.Log("Axis Left Stick: " + GetAxis());
     }
     
     void Config_Trigger()
@@ -78,9 +79,8 @@ public class Android_DinamicStick
         EventTrigger trigger = Point.gameObject.GetComponent<EventTrigger>();
         if (trigger == null) trigger = Point.gameObject.AddComponent<EventTrigger>();
 
-        AddEvent(trigger, EventTriggerType.PointerDown, (data) => Down());
+        
         AddEvent(trigger, EventTriggerType.PointerUp, (data) => Up());
-        AddEvent(trigger, EventTriggerType.PointerExit, (data) => Exit());
         AddEvent(trigger, EventTriggerType.Drag, (data) => Drag((PointerEventData)data));
     }
 
@@ -108,35 +108,29 @@ public class Android_DinamicStick
         Point.localPosition = new Vector3(pos.x, pos.y - Area.rect.height / 2, 0);
         Vector2 dif = Point.localPosition - Circle.localPosition;
         float radio = Circle.rect.height / 2f;
-        Debug.Log("radio: " + radio + " ---dif.mag: " + dif.magnitude);
+        if (manualRadio) radio = manualRadioValue;
         if (dif.magnitude <= radio) return;
         if (isDinamic)
         {
             Vector2 position_circle = Point.localPosition - (Vector3)dif.normalized * radio;
-            //Vector2 position_point = Point.localPosition;
-            if (position_circle.x-(Circle.rect.width/2f) < 0)
+            if (position_circle.x-radio < 0)
             {
-                position_circle.x = Circle.rect.width / 2f;
-                //position_point.x = 0;
+                position_circle.x = radio;
             }
-            else if (position_circle.x + (Circle.rect.width / 2f) > Area.rect.width)
+            else if (position_circle.x + (radio) > Area.rect.width)
             {
-                position_circle.x = Area.rect.width - (Circle.rect.width / 2f);
-                //position_point.x = Area.rect.width;
+                position_circle.x = Area.rect.width - radio;
             }
 
-            if (position_circle.y - (Circle.rect.height / 2f) < -Area.rect.height/2f)
+            if (position_circle.y - radio < -Area.rect.height/2f)
             {
-                position_circle.y = -Area.rect.height / 2f + Circle.rect.width / 2f;
-                //position_point.y = -Area.rect.height / 2f;
+                position_circle.y = -Area.rect.height / 2f + radio;
             }
-            else if (position_circle.y + (Circle.rect.height / 2f) > Area.rect.height / 2f)
+            else if (position_circle.y + radio > Area.rect.height / 2f)
             {
-                position_circle.y = Area.rect.height / 2f - (Circle.rect.width / 2f);
-                //position_point.y = Area.rect.height / 2f;
+                position_circle.y = Area.rect.height / 2f - radio;
             }
             Circle.localPosition = position_circle;
-            //Point.localPosition = position_point;
             Point.localPosition = Circle.localPosition + (Vector3)dif.normalized * radio;
         }
         else

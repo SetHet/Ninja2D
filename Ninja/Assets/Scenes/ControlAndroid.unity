@@ -491,5 +491,20 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 87876866211621156, guid: 40a985d7b9e98c64db090627c292227c,
+        type: 3}
+      propertyPath: stickLeft.manualRadioValue
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 87876866211621156, guid: 40a985d7b9e98c64db090627c292227c,
+        type: 3}
+      propertyPath: stickLeft.puntoMuerto
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 87876866211621156, guid: 40a985d7b9e98c64db090627c292227c,
+        type: 3}
+      propertyPath: stickLeft.puntoMaximo
+      value: 0.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40a985d7b9e98c64db090627c292227c, type: 3}
