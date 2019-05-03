@@ -6,20 +6,43 @@ using UnityEngine.UI;
 public class AndroidControl : MonoBehaviour
 {
     #region UI
-    [SerializeField] protected Android_DinamicStick stickLeft;
-    [SerializeField] protected Android_Button attack;
-    [SerializeField] protected Android_Button jump;
+    public Android_DinamicStick stickLeft;
+    public Android_Button attack;
+    public Android_Button jump;
     #endregion
-    private void Start()
+
+    #region Singleton
+    protected static AndroidControl _instance;
+    public static AndroidControl instance { get { return _instance; } }
+
+    void Singleton()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Hay varias instancias de AndroidControl.");
+            #if UNITY_EDITOR
+            gameObject.SetActive(false);
+            #else
+            Destroy(gameObject);
+            #endif
+        }
+    }
+#endregion
+
+#region Basic Methods
+    
+    private void Awake()
     {
         if (!OnlyAndroid()) return;
         attack.ConfigEvent();
         jump.ConfigEvent();
         stickLeft.Init();
-    }
-
-    void Update()
-    {
+        Singleton();
+        Debug.Log("Ready Android Control.");
     }
 
     private void LateUpdate()
@@ -27,6 +50,10 @@ public class AndroidControl : MonoBehaviour
         attack.Reset();
         jump.Reset();
     }
+
+#endregion
+
+#region Methods
 
     bool OnlyAndroid()
     {
@@ -36,9 +63,7 @@ public class AndroidControl : MonoBehaviour
 #endif
         return true;
     }
+    #endregion
 
-    public void Test()
-    {
-        Debug.Log("Is Press");
-    }
+
 }

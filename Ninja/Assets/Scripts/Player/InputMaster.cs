@@ -33,15 +33,36 @@ namespace Player
         #region Methods
         public Vector2 Mov()
         {
-            return new Vector2(Input.GetAxis(MoveHorizontal), Input.GetAxis(MoveVertical));
+            if (AndroidControl.instance != null)
+            {
+                return AndroidControl.instance.stickLeft.GetAxis();
+            }
+            else
+            {
+                return new Vector2(Input.GetAxis(MoveHorizontal), Input.GetAxis(MoveVertical));
+            }
         }
         public bool isJump()
         {
-            return Input.GetButton(Jump);
+            if (AndroidControl.instance != null)
+            {
+                return AndroidControl.instance.jump.IsDown();
+            }
+            else
+            {
+                return Input.GetButton(Jump);
+            }
         }
         public bool isAtackDown()
         {
-            return Input.GetKeyDown(Atack);
+            if (AndroidControl.instance != null)
+            {
+                return AndroidControl.instance.attack.IsDown();
+            }
+            else
+            {
+                return Input.GetKeyDown(Atack);
+            }
         }
         #endregion
     }

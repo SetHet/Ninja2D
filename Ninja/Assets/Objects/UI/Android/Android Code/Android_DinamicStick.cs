@@ -71,7 +71,6 @@ public class Android_DinamicStick
     void Drag(PointerEventData data)
     {
         Move(data.position);
-        //Debug.Log("Axis Left Stick: " + GetAxis());
     }
     
     void Config_Trigger()
