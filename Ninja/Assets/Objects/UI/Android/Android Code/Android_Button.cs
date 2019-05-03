@@ -11,6 +11,8 @@ public class Android_Button
     [SerializeField] protected EventTrigger trigger;
     [SerializeField] protected Color click = Color.gray;
     [SerializeField] protected bool isCircle = true;
+    [SerializeField] protected float dilay_down = 0.05f;
+    float cooldown_down = 0f;
 
     bool isDown = false;
     bool isUp = false;
@@ -21,7 +23,12 @@ public class Android_Button
     #region Methods
     public bool IsDown()
     {
-        return isDown;
+        if (isDown)
+        {
+            isDown = false;
+            return true;
+        }
+        return false;
     }
     public bool IsUp()
     {
@@ -38,7 +45,7 @@ public class Android_Button
 
     public void ConfigEvent()
     {
-        AddEvent(EventTriggerType.PointerDown, (data) => { isDown = true; isPress = true; });
+        AddEvent(EventTriggerType.PointerDown, (data) => { isDown = true; cooldown_down = Time.time + dilay_down; isPress = true; });
         AddEvent(EventTriggerType.PointerUp, (data) => { isUp = true; isPress = false; });
         AddEvent(EventTriggerType.PointerExit, (data) => { isPress = false; });
         AddEvent(EventTriggerType.PointerClick, (data) => { isClick = true; });
@@ -46,7 +53,8 @@ public class Android_Button
 
     public void Reset()
     {
-        isDown = false;
+        if (Time.time > cooldown_down)
+            isDown = false;
         isUp = false;
         isClick = false;
     }
