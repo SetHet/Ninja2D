@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class Android_DinamicStick
 {
     #region Variables
+    CanvasScaler canvas;
     [SerializeField] protected RectTransform Area;
     [SerializeField] protected RectTransform Circle;
     [SerializeField] protected RectTransform Point;
@@ -26,6 +27,7 @@ public class Android_DinamicStick
     #region Methods
     public void Init()
     {
+        canvas = Area.GetComponentInParent<CanvasScaler>();
         Config_Rect();
         Config_Trigger();
     }
@@ -70,7 +72,9 @@ public class Android_DinamicStick
 
     void Drag(PointerEventData data)
     {
-        Move(data.position);
+        Vector2 pos = data.position;
+        pos *= canvas.referenceResolution.y/((float)Screen.height);
+        Move(pos);
     }
     
     void Config_Trigger()

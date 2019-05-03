@@ -36,6 +36,7 @@ public class Android_Button
     }
     public bool IsPress()
     {
+        Debug.Log("El tiene un bug, hay que ver como cambiar su sistema para que se active mientas se mantenga precionado");
         return isPress;
     }
     public bool IsClick()
